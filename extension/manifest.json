@@ -1,0 +1,24 @@
+{
+  "name": "Image Saver Extension",
+  "description": "Chrome extension to scrape image urls from pages.",
+  "version": "0.1",
+  "manifest_version": 2,
+  "icons": { "16": "16.png", "128": "128.png" },
+  "permissions": [
+    "<all_urls>",
+    "identity"
+  ],
+  "background": {
+    "page": "background.html"
+  },
+  "content_scripts": [
+    {
+      "matches": ["http://*/*", "https://*/*"],
+      "js": ["scraper.js"]
+    }
+  ],
+  "browser_action": {
+    "default_icon": "16.png",
+    "default_popup": "popup.html"
+  }
+}
