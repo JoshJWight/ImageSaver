@@ -1,20 +1,14 @@
 console.log("starting scraper.js");
 
-var imageStr = "";
-
-for(var i = 0; i<document.images.length; ++i)
-{
-    imageStr += document.images[i].src;
-    if (i<document.images.length-1) {
-        imageStr+="\n";
-    }
-}
+//splat because document.images is a htmlcollection rather than an array
+imageUrls = [...document.images].map(function(img){
+	return img.src;
+});
 
 console.log("sending message");
-console.log(imageStr);
+console.log(imageUrls);
 
-chrome.runtime.sendMessage({urls:[imageStr]}, function(response) {
-  console.log("scraper received response");
+chrome.runtime.sendMessage({message:"set-urls", urls: imageUrls}, function(response) {
   console.log(response);
 });
 
