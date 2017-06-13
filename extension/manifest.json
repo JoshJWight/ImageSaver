@@ -14,7 +14,7 @@
   "content_scripts": [
     {
       "matches": ["http://*/*", "https://*/*"],
-      "js": ["scraper.js", "jquery.min.js"]
+      "js": ["scraper.js"]
     }
   ],
   "browser_action": {
