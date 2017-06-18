@@ -1,4 +1,5 @@
 urls = [];
+objectName = "";
 
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
     console.log("got message " + request.message);
@@ -14,10 +15,23 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 		var ws = new WebSocket("ws://localhost:1515");
 		ws.onopen = function()
 		{
-			ws.send("submit-url;" + request.url);
-			console.log("Message is sent...");
+			ws.send(JSON.stringify({method:"submit-url", url:request.url}));
 		};
 		sendResponse(urls);
+	} else if(request.message=="get-object") {
+		console.log("Sending get-object");
+		var ws = new WebSocket("ws://localhost:1515");
+		ws.onopen = function()
+		{
+			ws.send(JSON.stringify({method:"get-object"}));
+		};
+		ws.onmessage = function(event) {
+			data = JSON.parse(event.data);
+			objectName = data.name;
+			sendResponse(data.image);
+		};
+		//this allows the response to be sent asynchronously
+		return true;
 	}
 	
 	
