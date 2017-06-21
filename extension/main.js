@@ -7,7 +7,7 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 	
 	if(request.message=="set-urls") {
 		urls = request.urls;
-		sendResponse("urls received by main");
+		sendResponse();
 	} else if(request.message=="get-urls") {
 		sendResponse(urls);
 	} else if(request.message=="submit-url") {
@@ -19,7 +19,6 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 		};
 		sendResponse(urls);
 	} else if(request.message=="get-object") {
-		console.log("Sending get-object");
 		var ws = new WebSocket("ws://localhost:1515");
 		ws.onopen = function()
 		{
@@ -32,6 +31,13 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 		};
 		//this allows the response to be sent asynchronously
 		return true;
+	} else if(request.message=="rate-object") {
+		var ws = new WebSocket("ws://localhost:1515");
+		ws.onopen = function()
+		{
+			ws.send(JSON.stringify({method:"rate-object", rating:request.rating}));
+		};
+		sendResponse();
 	}
 	
 	

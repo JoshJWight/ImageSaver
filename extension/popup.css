@@ -1,0 +1,12 @@
+#object-rate-panel{
+	display:none;
+	background-color: green;
+}
+
+#checkmark{
+	max-width:32px;
+}
+
+#x{
+	max-width:32px;
+}
