@@ -10,3 +10,7 @@
 #x{
 	max-width:32px;
 }
+
+#wall-panel img{
+	max-width: 500px;
+}

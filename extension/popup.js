@@ -33,6 +33,13 @@ getObject = function(){
 		$("#object-rate-panel").show();
 	});
 };
+
+getWall = function(){
+	chrome.runtime.sendMessage({message:"get-wallpaper"}, function(wallImg) {
+		$("#wall-panel").empty();
+		$("#wall-panel").append("<img src=\"" + wallImg + "\">");
+	});
+};
 			
 submitURL = function(event){
 	imgUrl = event.currentTarget.src;
@@ -48,3 +55,4 @@ $("#checkmark").click(approveObject);
 $("#x").click(rejectObject);
 getURLs();
 getObject();
+getWall();
